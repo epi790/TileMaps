@@ -48,7 +48,7 @@ public class player : GameSprite
 
 		//Position = Vector2.Lerp(startPos, Destination, elapsedTime);
 
-		//Position = Vector2.Clamp(Position, Vector2.Zero, _maxPos);
+		Position = Vector2.Clamp(Position, Vector2.Zero, _maxPos);
 		
 		if (InputManager.Released) pressed = false;
 		
