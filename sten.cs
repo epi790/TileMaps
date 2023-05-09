@@ -3,12 +3,36 @@ using Microsoft.Xna.Framework.Graphics;
 using SharpDX.DirectWrite;
 using System;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 public class Sten : GameSprite
 {
+	private int Round = 0;
 	
-	public Sten(Point tile, Vector2 pos) : base(tile, pos)
+	public Sten(Vector2 pos) : base(pos)
 	{
-		_tilemap = Globals.StenSprite;
+		this._tilemap = Globals.StenSprite;
+		this.tile = new(5, 15);
+		this.Position = pos;
 	}
+
+	public virtual void Update()
+	{
+		if (Round != Globals.Round)
+		{
+            AdvanceRound();
+			Round++;
+           
+		}
+	}
+
+	protected virtual void AdvanceRound()
+	{
+        if (Globals.PlayerPos == this.Position)
+        {
+            this.Position += new Vector2(InputManager.Direction.X * Globals.TileSize.X, InputManager.Direction.Y * Globals.TileSize.Y);
+        }
+        
+    }
+
 }

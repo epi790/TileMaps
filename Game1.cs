@@ -38,7 +38,7 @@ namespace TileMaps
             Globals.spriteBatch = _spriteBatch;
             Globals.Tilemap = Content.Load<Texture2D>("Texture/Grass");
             Globals.PlayerSprite = Content.Load<Texture2D>("Texture/Player");
-            //Globals.StenSprite = Content.Load<Texture2D>("");
+            Globals.StenSprite = Content.Load<Texture2D>("Texture/Props");
             Globals.font = Content.Load<SpriteFont>("sprite");
             // TODO: use this.Content to load your game content here
         }

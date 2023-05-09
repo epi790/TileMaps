@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using SharpDX.DirectWrite;
 using System;
 using System.Diagnostics;
@@ -18,28 +19,29 @@ public class player : GameSprite
 
 	private float elapsedTime;
 
-	public player(Point tile, Vector2 position ) : base( tile, position )
+	public player(Vector2 position ) : base(position )
 	{
 		this.Position = position;
 		this._tilemap = Globals.PlayerSprite; 
 		source = new Rectangle(tile.X * 32, tile.Y * 64, 32, 64);
 		this.Origin = new(source.X / 2, (source.Y / 2) + 32);
+		this.tile = new(0, 0);
 
-
-		
-		
 	}
 
 	public void SetBounds(Point mapSize, Point TileSize)
 	{
 		_minPos = new Vector2((-TileSize.X/2), (-TileSize.Y/2) + source.Height );
-		_maxPos = new Vector2(mapSize.X - (TileSize.X), mapSize.Y);
+		_maxPos = new Vector2(mapSize.X - (TileSize.X), mapSize.Y - TileSize.Y);
 	}
 
 
 	public void Update()
 	{
-		if (!pressed)
+
+		
+
+		if (InputManager.HasBeenPressed(Keys.W) || InputManager.HasBeenPressed(Keys.A) || InputManager.HasBeenPressed(Keys.S) || InputManager.HasBeenPressed(Keys.D))
 		{
 			startPos = Position;
 			//elapsedTime = 0;
@@ -47,6 +49,9 @@ public class player : GameSprite
 			Destination = new(Position.X + InputManager.Direction.X * Globals.TileSize.X, Position.Y + InputManager.Direction.Y * Globals.TileSize.Y);
 			this.Position = Destination;
 			this.Origin = new(source.X / 2, (source.Y / 2));
+			Globals.PlayerPos = this.Position;
+
+			Globals.Round++;
 
 
 			//Position += InputManager.Direction;
@@ -67,7 +72,7 @@ public class player : GameSprite
 
 	public override void Draw()
 	{
-		//	Globals.spriteBatch.Draw(_texture, Position, null, Color.White, 0f, Origin, 1f, SpriteEffects.None, 0f);
+		
 		Globals.spriteBatch.Draw(_tilemap, Position - new Vector2(0, 64), source,  Color.White, 0, Vector2.Zero, 2f, SpriteEffects.None, 0f);
 		Globals.spriteBatch.DrawString(Globals.font, Position.ToString(), Position + new Vector2(-100, -100), Color.White);
 		Globals.spriteBatch.DrawString(Globals.font, (Position.X / 64).ToString() + " " + (Position.Y / 64).ToString(), Position + new Vector2(100, -100), Color.White);
