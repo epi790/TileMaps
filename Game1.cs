@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Comora;
+using SharpDX.Direct3D9;
 
 namespace TileMaps
 {
@@ -37,6 +38,8 @@ namespace TileMaps
             Globals.spriteBatch = _spriteBatch;
             Globals.Tilemap = Content.Load<Texture2D>("grass");
             Globals.PlayerSprite = Content.Load<Texture2D>("Player");
+            Globals.StenSprite = Content.Load<Texture2D>("");
+            Globals.font = Content.Load<SpriteFont>("sprite");
             // TODO: use this.Content to load your game content here
         }
 

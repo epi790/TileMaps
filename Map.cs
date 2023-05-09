@@ -9,7 +9,7 @@ using TileMaps;
 public class Map
 {
 
-	private readonly Point _mapTileSize = new(20, 20);
+	private readonly Point _mapTileSize = new(201, 20);
 	private readonly GameSprite[,] _tiles;
 	public Point TileSize { get; set; }
 	public Point MapSize { get; set; }

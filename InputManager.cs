@@ -16,10 +16,10 @@ public static class InputManager
 
 		_direction = Vector2.Zero;
 
-		if (keyboardState.IsKeyDown(Keys.A)) _direction.X--;
-		if (keyboardState.IsKeyDown(Keys.D)) _direction.X++;
-		if (keyboardState.IsKeyDown(Keys.W)) _direction.Y--;
-		if (keyboardState.IsKeyDown(Keys.S)) _direction.Y++;
+		if (keyboardState.IsKeyDown(Keys.A)) _direction = new(-1, 0);
+		if (keyboardState.IsKeyDown(Keys.D)) _direction = new(1, 0);
+		if (keyboardState.IsKeyDown(Keys.W)) _direction = new(0, -1);
+		if (keyboardState.IsKeyDown(Keys.S)) _direction = new(0, 1);
 		
 		if (_direction != Vector2.Zero)
 		{
