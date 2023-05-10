@@ -12,9 +12,12 @@ public static class InputManager
 
     static KeyboardState currentKeyState;
     static KeyboardState previousKeyState;
-
+	public static Vector2 LastDirection;
     public static void Update()
 	{
+
+
+
 		GetState();
 
 		var keyboardState = Keyboard.GetState();
@@ -26,6 +29,13 @@ public static class InputManager
 		if (keyboardState.IsKeyDown(Keys.W)) _direction = new(0, -1);
 		if (keyboardState.IsKeyDown(Keys.S)) _direction = new(0, 1);
 		
+		if ((Globals.PlayerPos.X + Globals.PlayerPos.Y) % 64 == 0 && _direction != Vector2.Zero)
+		{
+
+
+			LastDirection = _direction;
+		} 
+
 		//Diagonaler
 		//if (_direction != Vector2.Zero)
 		//{

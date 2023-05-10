@@ -28,6 +28,10 @@ namespace TileMaps
             _gameManager = new GameManager(this._graphics.GraphicsDevice);
             Globals.Content = Content;
             this.camera = new(this._graphics.GraphicsDevice);
+            Globals.WindowSize = new(768, 448);
+            _graphics.PreferredBackBufferWidth = Globals.WindowSize.X;
+            _graphics.PreferredBackBufferHeight = Globals.WindowSize.Y;
+            _graphics.ApplyChanges();
            
 
         }

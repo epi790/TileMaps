@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -23,6 +23,12 @@ public static class Globals
 	public static int Round { get; set; }
 
 	public static Point TileSize { get; set; }
+	public static Point MapSize { get; set; }
+	public static Point WindowSize { get; set; }
+
+	public static List<IBonkable> BonkList { get; set; }
+
+
 
 	public static void Update(GameTime gameTime)
 	{

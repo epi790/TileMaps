@@ -5,7 +5,7 @@ using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-public class Sten : GameSprite
+public class Sten : GameSprite, IBonkable
 {
 	private int Round = 0;
 	
@@ -18,20 +18,30 @@ public class Sten : GameSprite
 
 	public virtual void Update()
 	{
+
+		if (Globals.PlayerPos == this.Position) 
+		{
+			
+		}
+
 		if (Round != Globals.Round)
 		{
             AdvanceRound();
 			Round = Globals.Round;
-           
 		}
 	}
 
 	protected virtual void AdvanceRound()
 	{
-        if (this.Position == Globals.PlayerPos )
-        {
-            this.Position += new Vector2(InputManager.Direction.X * Globals.TileSize.X, InputManager.Direction.Y * Globals.TileSize.Y);
-        }
+		foreach (var item in Globals.BonkList)
+		{
+			if (item.Position == this.Position && item != this)
+			{
+				this.Position += new Vector2(InputManager.LastDirection.X * Globals.TileSize.X, InputManager.LastDirection.Y * Globals.TileSize.Y);
+				AdvanceRound();
+			}
+		}
+        
         
     }
 

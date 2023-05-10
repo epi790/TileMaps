@@ -39,27 +39,22 @@ public class ArgSten : Sten
 
     private void AngryStuff()
     {
-            dx = this.Position.X - Globals.PlayerPos.X;  
-            dy = this.Position.Y - Globals.PlayerPos.Y;
+            //dx = this.Position.X - Globals.PlayerPos.X;  
+            //dy = this.Position.Y - Globals.PlayerPos.Y;
 
-            if (Math.Abs(dx) > Math.Abs(dy))
-            {
-                //this.Position -= new Vector2(dx / Math.Abs(dx) * Globals.TileSize.X, 0);
-            }
-            else
-            {
-                //this.Position -= new Vector2(0, dy / Math.Abs(dy) * Globals.TileSize.Y);
-            }
+            //if (Math.Abs(dx) > Math.Abs(dy))
+            //{
+            //    //this.Position -= new Vector2(dx / Math.Abs(dx) * Globals.TileSize.X, 0);
+            //}
+            //else
+            //{
+            //    //this.Position -= new Vector2(0, dy / Math.Abs(dy) * Globals.TileSize.Y);
+            //}
 
 
     }
 
-    public override void Draw()
-    {
-        base.Draw();
-
-        Globals.spriteBatch.DrawString(Globals.font, String.Format("{0} X: {1} Y: {2}", Vector2.Distance(this.Position, Globals.PlayerPos), this.Position.X / 64, this.Position.Y / 64), this.Position, Color.White);
-    }
+   
 
 
 }
