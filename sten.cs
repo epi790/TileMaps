@@ -21,14 +21,14 @@ public class Sten : GameSprite
 		if (Round != Globals.Round)
 		{
             AdvanceRound();
-			Round++;
+			Round = Globals.Round;
            
 		}
 	}
 
 	protected virtual void AdvanceRound()
 	{
-        if (Globals.PlayerPos == this.Position)
+        if (this.Position == Globals.PlayerPos )
         {
             this.Position += new Vector2(InputManager.Direction.X * Globals.TileSize.X, InputManager.Direction.Y * Globals.TileSize.Y);
         }

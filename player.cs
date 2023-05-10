@@ -7,15 +7,13 @@ using System.Diagnostics;
 
 public class player : GameSprite
 {
-	private int speed = 500;
 
 	private Vector2 _minPos, _maxPos;
-	private bool pressed;
 	private Vector2 startPos;
 	private Vector2 Destination;
 	private Rectangle source;
-
-	
+	float TargetFrames = 3;
+	bool IsMoving = false;
 
 	private float elapsedTime;
 
@@ -41,31 +39,52 @@ public class player : GameSprite
 
 		
 
-		if (InputManager.HasBeenPressed(Keys.W) || InputManager.HasBeenPressed(Keys.A) || InputManager.HasBeenPressed(Keys.S) || InputManager.HasBeenPressed(Keys.D))
+		if ( ( InputManager.HasBeenPressed(Keys.W) || InputManager.HasBeenPressed(Keys.A) || InputManager.HasBeenPressed(Keys.S) || InputManager.HasBeenPressed(Keys.D) ) && !IsMoving )
 		{
 			startPos = Position;
-			//elapsedTime = 0;
+			elapsedTime = 0;
 
 			Destination = new(Position.X + InputManager.Direction.X * Globals.TileSize.X, Position.Y + InputManager.Direction.Y * Globals.TileSize.Y);
-			this.Position = Destination;
+			//this.Position = Destination;
 			this.Origin = new(source.X / 2, (source.Y / 2));
-			Globals.PlayerPos = this.Position;
 
-			Globals.Round++;
+		
+		
 
-
+		
 			//Position += InputManager.Direction;
-			pressed = true;
+			
+			
         }
 
-		elapsedTime += Globals.Time;
-
+	
+		this.Position = Vector2.Lerp(startPos, Destination, elapsedTime/TargetFrames);
+		
+		
 
 		//Position = Vector2.Lerp(startPos, Destination, elapsedTime);
 
 		Position = Vector2.Clamp(Position, Vector2.Zero, _maxPos);
+
+
+	
+
+	if (elapsedTime < TargetFrames)
+		{
+			elapsedTime++;
+			IsMoving = true;
+
+
+		}
+		else 
+		{
+			if (IsMoving) { Globals.Round++; Globals.PlayerPos = this.Position; }
+;
+			IsMoving = false;
+		}
+
+
 		
-		if (InputManager.Released) pressed = false;
 		
 		
 	}

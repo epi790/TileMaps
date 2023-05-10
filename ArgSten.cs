@@ -13,7 +13,7 @@ public class ArgSten : Sten
 
 	public ArgSten(Vector2 pos) : base(pos)
 	{
-		
+
 	}
 
 
@@ -24,28 +24,42 @@ public class ArgSten : Sten
         if (this.Position.X - Globals.PlayerPos.X < Globals.TileSize.X * 3 && this.Position.Y - Globals.PlayerPos.Y < Globals.TileSize.Y * 3)
         {
             Angry = true;
+			this.tile = new(6, 15);
             
         }
 
         if (Angry)
         {
-            dx = this.Position.X - Globals.PlayerPos.X;  
-            dy = this.Position.Y - Globals.PlayerPos.Y;
-
-            if (Math.Abs(dx) > Math.Abs(dy))
-            {
-                this.Position += new Vector2(dx / Math.Abs(dx), 0);
-            }
-            else
-            {
-                this.Position += new Vector2(dy / Math.Abs(dy), 0);
-            }
+            AngryStuff();
         }
 
         base.AdvanceRound();
 
     }
 
+    private void AngryStuff()
+    {
+            dx = this.Position.X - Globals.PlayerPos.X;  
+            dy = this.Position.Y - Globals.PlayerPos.Y;
+
+            if (Math.Abs(dx) > Math.Abs(dy))
+            {
+                //this.Position -= new Vector2(dx / Math.Abs(dx) * Globals.TileSize.X, 0);
+            }
+            else
+            {
+                //this.Position -= new Vector2(0, dy / Math.Abs(dy) * Globals.TileSize.Y);
+            }
+
+
+    }
+
+    public override void Draw()
+    {
+        base.Draw();
+
+        Globals.spriteBatch.DrawString(Globals.font, String.Format("{0} X: {1} Y: {2}", Vector2.Distance(this.Position, Globals.PlayerPos), this.Position.X / 64, this.Position.Y / 64), this.Position, Color.White);
+    }
 
 
 }
