@@ -19,10 +19,7 @@ public class Sten : GameSprite, IBonkable
 	public virtual void Update()
 	{
 
-		if (Globals.PlayerPos == this.Position) 
-		{
-			
-		}
+		if (Globals.PlayerPos == this.Position) this.Position += new Vector2(InputManager.LastDirection.X * Globals.TileSize.X, InputManager.LastDirection.Y * Globals.TileSize.Y);
 
 		if (Round != Globals.Round)
 		{
@@ -31,14 +28,18 @@ public class Sten : GameSprite, IBonkable
 		}
 	}
 
-	protected virtual void AdvanceRound()
+	public virtual void AdvanceRound()
 	{
+
+
 		foreach (var item in Globals.BonkList)
 		{
 			if (item.Position == this.Position && item != this)
 			{
-				this.Position += new Vector2(InputManager.LastDirection.X * Globals.TileSize.X, InputManager.LastDirection.Y * Globals.TileSize.Y);
-				AdvanceRound();
+				item.Position += new Vector2(InputManager.LastDirection.X * Globals.TileSize.X, InputManager.LastDirection.Y * Globals.TileSize.Y);
+
+				//this.Position += new Vector2(InputManager.LastDirection.X * Globals.TileSize.X, InputManager.LastDirection.Y * Globals.TileSize.Y);
+				item.AdvanceRound();
 			}
 		}
         

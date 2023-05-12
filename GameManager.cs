@@ -24,7 +24,7 @@ public class GameManager
 		Player.SetBounds(_map.MapSize, _map.TileSize);
 		Globals.BonkList = new List<IBonkable>();
 
-		Globals.BonkList.Add(Player);
+		//Globals.BonkList.Add(Player);
         Globals.BonkList.Add(new ArgSten(new(Globals.TileSize.X * 3, Globals.TileSize.Y * 3)));
         Globals.BonkList.Add(new Sten(new(Globals.TileSize.X * 5, Globals.TileSize.Y * 5)));
         Globals.BonkList.Add(new Sten(new(Globals.TileSize.X * 3, Globals.TileSize.Y * 5)));
@@ -50,6 +50,11 @@ public class GameManager
 
 		foreach (Sten sten in Globals.BonkList.OfType<Sten>()) sten.Update();
 
+		//foreach (var item in _map._tiles)
+		//{
+		//	item.contains();
+		//} 
+		
 
 		
 	}

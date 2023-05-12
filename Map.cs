@@ -10,12 +10,13 @@ public class Map
 {
 
 	private readonly Point _mapTileSize = new(21, 20);
-	private readonly GameSprite[,] _tiles;
+	public GameSprite[,] _tiles;
 	public Point TileSize { get; set; }
 	public Point MapSize { get; set; }
 
 	private Point tile;
 
+	Random random = new(DateTime.Now.Millisecond);
 
 
 	public Map()
@@ -29,7 +30,6 @@ public class Map
 
 		Globals.MapSize = new Point(TileSize.X * _mapTileSize.X, TileSize.Y * _mapTileSize.Y);
 
-		Random random = new(DateTime.Now.Millisecond);
 
 		for (int i = 0; i < _mapTileSize.X; i++)
 		{
@@ -55,17 +55,8 @@ public class Map
 		{
 			for (int j = 0; j < _mapTileSize.Y; j++)
 			{
-
-
 				_tiles[i, j].Draw();
-
-
-
-
 			}
 		}
-
-
-		//_tiles[0,0].Draw();
 	}
 }

@@ -8,6 +8,8 @@ using SharpDX.Direct3D9;
 
 public static class Globals
 {
+
+	// Variabler som allt kan komma åt
 	public static float Time { get; set; }
 	public static ContentManager Content { get; set; }
 	public static SpriteBatch spriteBatch {get; set;}
@@ -32,6 +34,7 @@ public static class Globals
 
 	public static void Update(GameTime gameTime)
 	{
+		//Updatera variabler
 		Time = (float)gameTime.ElapsedGameTime.TotalSeconds;
 	}
 

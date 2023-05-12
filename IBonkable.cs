@@ -9,6 +9,7 @@ using System.Diagnostics;
 public interface IBonkable
 {
     public Vector2 Position { get; set; }
+    public void AdvanceRound() { }
 
     //abstract void bonk { }
 }
