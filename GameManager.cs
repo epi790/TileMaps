@@ -39,6 +39,15 @@ public class GameManager
 
 	}
 
+	private void Init()
+	{
+        _map = new Map(new(rnd.Next(5, 15), rnd.Next(5, 15)));
+        Player = new(new(Globals.TileSize.X, Globals.TileSize.Y));
+        Player.SetBounds(_map.MapSize, _map.TileSize);
+        Globals.BonkList = new List<IBonkable>();
+        Globals.WinPos = new Vector2(rnd.Next(Globals.MapSize.X / Globals.TileSize.X), rnd.Next(Globals.MapSize.Y / Globals.TileSize.Y));
+    }
+
 	public void NewMap()
 	{
 		_map = new Map(new(rnd.Next(5, 15),rnd.Next(5, 15)));
