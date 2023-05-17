@@ -13,7 +13,7 @@ public static class Globals
 	public static float Time { get; set; }
 	public static ContentManager Content { get; set; }
 	public static SpriteBatch spriteBatch {get; set;}
-	public static Point Windowsize { get; set; }
+	
 	public static GameTime GameTime { get; set; }
 	public static Texture2D PlayerSprite { get; set; }
 
@@ -29,6 +29,7 @@ public static class Globals
 	public static Point WindowSize { get; set; }
 
 	public static List<IBonkable> BonkList { get; set; }
+	public static Vector2 WinPos { get; set; }
 
 
 

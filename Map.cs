@@ -9,7 +9,7 @@ using TileMaps;
 public class Map
 {
 
-	private readonly Point _mapTileSize = new(21, 20);
+	private readonly Point _mapTileSize;
 	public GameSprite[,] _tiles;
 	public Point TileSize { get; set; }
 	public Point MapSize { get; set; }
@@ -19,13 +19,16 @@ public class Map
 	Random random = new(DateTime.Now.Millisecond);
 
 
-	public Map()
+	public Map(Point _mapTileSize)
 	{
+		this._mapTileSize = _mapTileSize;
+		//this._mapTileSize.X += 1;
 		_tiles = new GameSprite[_mapTileSize.X, _mapTileSize.Y];
 
 		//List<Texture2D> textures = new List<Texture2D>(64);
 
 		TileSize = new Point(64, 64);
+
 		Globals.TileSize = TileSize;
 
 		Globals.MapSize = new Point(TileSize.X * _mapTileSize.X, TileSize.Y * _mapTileSize.Y);

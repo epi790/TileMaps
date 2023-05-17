@@ -12,8 +12,7 @@ public class player : GameSprite
 	private Vector2 startPos;
 	private Vector2 Destination;
 	private Rectangle source;
-	float TargetFrames = 3
-		;
+	float TargetFrames = 3;
 	bool IsMoving = false;
 
 	private float elapsedTime;

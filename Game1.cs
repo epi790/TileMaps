@@ -58,6 +58,12 @@ namespace TileMaps
             base.Update(gameTime);
         }
 
+        public void newLevel()
+        {
+            _gameManager.NewMap();
+            
+        }
+
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
