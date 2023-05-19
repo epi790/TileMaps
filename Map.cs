@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using TileMaps;
+using System.Linq;
 
 public class Map
 {
@@ -61,5 +62,7 @@ public class Map
 				_tiles[i, j].Draw();
 			}
 		}
+
+		
 	}
 }

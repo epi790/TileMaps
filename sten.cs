@@ -38,7 +38,6 @@ public class Sten : GameSprite, IBonkable
 			{
 				item.Position += new Vector2(InputManager.LastDirection.X * Globals.TileSize.X, InputManager.LastDirection.Y * Globals.TileSize.Y);
 
-				//this.Position += new Vector2(InputManager.LastDirection.X * Globals.TileSize.X, InputManager.LastDirection.Y * Globals.TileSize.Y);
 				item.AdvanceRound();
 			}
 		}

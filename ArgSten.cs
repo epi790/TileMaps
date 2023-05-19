@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Configuration;
 using System.Diagnostics;
@@ -20,22 +21,23 @@ public class ArgSten : Sten
 
 
     public override void AdvanceRound()
-    {
+    { 
+        if (this.Angry)
+        {
+            AngryStuff();
+        }
+
 
         if (this.Position.X - Globals.PlayerPos.X < Globals.TileSize.X * 3 && this.Position.Y - Globals.PlayerPos.Y < Globals.TileSize.Y * 3)
         {
-            Angry = true;
+            this.Angry = true;
 			this.tile = new(6, 15);
             
         }
 
         base.AdvanceRound();
 
-        if (Angry)
-        {
-            AngryStuff();
-        }
-
+       
 
     }
 
@@ -45,16 +47,18 @@ public class ArgSten : Sten
         dx = this.Position.X - Globals.PlayerPos.X;
         dy = this.Position.Y - Globals.PlayerPos.Y;
 
-        //if (counter % 3 == 0) return;
+        if (counter % 3 == 0) return;
 
-        //if (Math.Abs(dx) > Math.Abs(dy))
-        //{
-        //    this.Position -= new Vector2(dx / Math.Abs(dx) * Globals.TileSize.X, 0);
-        //}
-        //else
-        //{
-        //    this.Position -= new Vector2(0, dy / Math.Abs(dy) * Globals.TileSize.Y);
-        //}
+        if (Math.Abs(dx) > Math.Abs(dy))
+        {
+            this.Position -= new Vector2(dx / Math.Abs(dx) * Globals.TileSize.X, 0);
+        }
+        else
+        {
+            this.Position -= new Vector2(0, dy / Math.Abs(dy) * Globals.TileSize.Y);
+        }
+
+        if (this.Position == Globals.PlayerPos) { Globals.Lose = true; }
 
 
 
@@ -62,7 +66,7 @@ public class ArgSten : Sten
 
     }
 
-   
+
 
 
 }

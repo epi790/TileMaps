@@ -42,6 +42,8 @@ namespace TileMaps
             Globals.PlayerSprite = Content.Load<Texture2D>("Texture/Player");
             Globals.StenSprite = Content.Load<Texture2D>("Texture/Props");
             Globals.font = Content.Load<SpriteFont>("sprite");
+            Globals.StructTexture = Content.Load<Texture2D>("Texture/Struct");
+            Globals.ArrowTexture = Content.Load<Texture2D>("arrow");
             // TODO: use this.Content to load your game content here
         }
 
@@ -58,18 +60,14 @@ namespace TileMaps
             base.Update(gameTime);
         }
 
-        public void newLevel()
-        {
-            _gameManager.NewMap();
-            
-        }
-
+       
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            _gameManager.Draw();
+            if (!Globals.Lose) _gameManager.Draw();
+            else { _gameManager.Lose();  }
             base.Draw(gameTime);
         }
     }

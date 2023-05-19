@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -13,6 +14,9 @@ public class GameSprite
 	public GameSprite contains { get; set; }
 	public Vector2 Origin { get; protected set; }
 	protected Point tile;
+	protected Point tileSize = new(1, 1);
+	protected float scale = 2f;
+	protected float rotation = 0f;
 	
 	public GameSprite(Vector2 position)
 	{
@@ -29,15 +33,9 @@ public class GameSprite
 		this.tile = tile;
 	}
 
-	private void Contain()
-	{
-		foreach (var item in Globals.BonkList)
-		{
-			if (item.Position == this.Position) contains = (GameSprite)item;
-		}
-	}
+
 	public virtual void Draw()
 	{
-		Globals.spriteBatch.Draw(_tilemap, Position, new Rectangle(tile.X * 32, tile.Y * 32, 32, 32), Color.White, 0, Vector2.Zero, 2f, SpriteEffects.None, 0f);
+		Globals.spriteBatch.Draw(this._tilemap, this.Position, new Rectangle(this.tile.X * 32, this.tile.Y * 32, this.tileSize.X * 32, this.tileSize.Y * 32), Color.White, this.rotation, Vector2.Zero, this.scale, SpriteEffects.None, 0f);
 	}
 }
