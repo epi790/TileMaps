@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using System.Diagnostics;
 
 public class GameManager
 {
@@ -159,9 +160,17 @@ public class GameManager
             camera.Position + new Vector2(0, 50),
             Color.White
         );
+        
+        List<string> ScoresString = new List<string>();
+
+        foreach (var item in ScoreManager.GetScores())
+        {
+            ScoresString.Add(item.ToString());
+        }
+
         Globals.spriteBatch.DrawString(
             Globals.font,
-            string.Format("Top Scores: \r\n 1. {0} \r\n 2. {1} \r\n 3. {2}", ScoreManager.GetScores()[0], ScoreManager.GetScores()[1], ScoreManager.GetScores()[2]),
+            string.Format("Top Scores: \r\n 1. {0} \r\n 2. {1} \r\n 3. {2}", ScoreManager.GetScores()[0].ToString(), ScoreManager.GetScores()[1], ScoreManager.GetScores()[2]),
             camera.Position + new Vector2(0, 100),
             Color.White);
 
