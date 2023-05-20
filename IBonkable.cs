@@ -1,11 +1,6 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using SharpDX.DirectWrite;
-using System;
-using System.Diagnostics;
+﻿using Microsoft.Xna.Framework;
 
+// Interface för det som kan flyttas på
 public interface IBonkable
 {
     public Vector2 Position { get; set; }

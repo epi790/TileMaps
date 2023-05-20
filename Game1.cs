@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Comora;
-using SharpDX.Direct3D9;
 
 namespace TileMaps
 {
@@ -30,12 +28,12 @@ namespace TileMaps
             _graphics.PreferredBackBufferWidth = Globals.WindowSize.X;
             _graphics.PreferredBackBufferHeight = Globals.WindowSize.Y;
             _graphics.ApplyChanges();
-           
 
         }
 
         protected override void LoadContent()
         {
+            // ladda in alla texturer och lägg dem i Global.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             Globals.spriteBatch = _spriteBatch;
             Globals.Tilemap = Content.Load<Texture2D>("Texture/Grass");
@@ -44,7 +42,7 @@ namespace TileMaps
             Globals.font = Content.Load<SpriteFont>("sprite");
             Globals.StructTexture = Content.Load<Texture2D>("Texture/Struct");
             Globals.ArrowTexture = Content.Load<Texture2D>("arrow");
-            // TODO: use this.Content to load your game content here
+           
         }
 
         protected override void Update(GameTime gameTime)
@@ -54,20 +52,17 @@ namespace TileMaps
 
             // TODO: Add your update logic here
             _gameManager.Update(gameTime);
-            Globals.Update(gameTime);
-
-
             base.Update(gameTime);
         }
 
-       
+
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
             if (!Globals.Lose) _gameManager.Draw();
-            else { _gameManager.Lose();  }
+            else { _gameManager.Lose(); }
             base.Draw(gameTime);
         }
     }
