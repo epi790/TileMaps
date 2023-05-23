@@ -21,6 +21,8 @@ public static class ScoreManager
             ints.Add(Convert.ToInt32(item));
         }
         ints.Sort();
+        ints.Reverse();
+        
 
         return ints;
     }
@@ -28,7 +30,7 @@ public static class ScoreManager
     public static void SaveScore(int score) 
     {
         string[] x = {score.ToString()};
-        File.WriteAllLines ("../../score.txt", x);
+        File.AppendAllLines ("../../score.txt", x);
     }
 
 }

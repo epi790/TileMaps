@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+//using System.Windows.Forms;
 
 public static class InputManager
 {
@@ -12,11 +13,14 @@ public static class InputManager
     static KeyboardState currentKeyState;
     static KeyboardState previousKeyState;
     public static Vector2 LastDirection;
+    static MouseState mouseState;
+    static Point LastClick;
     public static void Update()
     {
         //få tangen tbordets state
         GetState();
         var keyboardState = Keyboard.GetState();
+        mouseState = Mouse.GetState();
 
         //BEstäm en riktning
         _direction = Vector2.Zero;
@@ -35,6 +39,10 @@ public static class InputManager
         if (keyboardState.GetPressedKeys().Length == 0) Released = true;
         else Released = false;
 
+        //musintegration
+
+        if (mouseState.LeftButton == ButtonState.Pressed) { LastClick = new Point(mouseState.X, mouseState.Y); }
+
     }
 
     public static KeyboardState GetState()
@@ -42,6 +50,11 @@ public static class InputManager
         previousKeyState = currentKeyState;
         currentKeyState = Keyboard.GetState();
         return currentKeyState;
+    }
+
+    public static Point LastClicked()
+    {
+        return LastClick;
     }
 
     public static bool HasBeenPressed(Keys key)

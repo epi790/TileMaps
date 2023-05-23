@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 public class GameManager
 {
@@ -16,13 +17,16 @@ public class GameManager
     private Camera camera;
     private Random rnd = new Random();
     trappa Trappa = new trappa(new(6, 6));
+    bool ScreenShown, GameStarted;
+    Button button;
     
 
     public GameManager(GraphicsDevice gd)
     {
         // initiera
+        ScoreManager.CheckFile();
+        button = new Button(new Vector2(100, 100), "start");
         
-        ScoreManager.GetScores();
 
         _map = new Map(new(20, 20));
         Player = new(new(Globals.TileSize.X, Globals.TileSize.Y));
@@ -39,6 +43,12 @@ public class GameManager
         //Exempel stenar
 
         Globals.BonkList.Add(new ArgSten(new(Globals.TileSize.X * 6, Globals.TileSize.Y * 6)));
+        Globals.BonkList.Add(new ArgSten(new(Globals.TileSize.X * 6, Globals.TileSize.Y * 7)));
+
+        Globals.BonkList.Add(new ArgSten(new(Globals.TileSize.X * 6, Globals.TileSize.Y * 8)));
+        Globals.BonkList.Add(new ArgSten(new(Globals.TileSize.X * 6, Globals.TileSize.Y * 9)));
+        Globals.BonkList.Add(new ArgSten(new(Globals.TileSize.X * 6, Globals.TileSize.Y * 10)));
+
         Globals.BonkList.Add(new Sten(new(Globals.TileSize.X * 2, Globals.TileSize.Y * 3)));
     }
 
@@ -137,11 +147,29 @@ public class GameManager
         }
     }
 
+    public void StartScreen()
+    {
+
+        Globals.spriteBatch.DrawString(Globals.font, "Stenar och Ratblock", new Vector2(Globals.WindowSize.X / 2 - 50, 10), Color.White);
+        Globals.spriteBatch.DrawString(Globals.font, "", new Vector2(Globals.WindowSize.X / 2 - 50, 10), Color.White);
+        Globals.spriteBatch.DrawString(Globals.font, "Stenar och Ratblock", new Vector2(Globals.WindowSize.X / 2 - 50, 10), Color.White);
+
+        button.Update();
+        button.Draw();
+        if (button.Clicked) GameStarted = true;
+        
+        Globals.spriteBatch.End();
+    }
+
     public void Lose()
     {
-        //Rensa allt., se till att man inte kan göra något i bakgrunden och visa poäng.
         int score = Globals.Level * Globals.Stones;
-        ScoreManager.SaveScore(score);
+
+        if (!ScreenShown) ScoreManager.SaveScore(score);
+        
+
+        //Rensa allt. se till att man inte kan göra något i bakgrunden och visa poäng.
+       
 
         //standardisera förutsättningar när man dör.
         _device.Clear(Color.Black);
@@ -161,22 +189,27 @@ public class GameManager
             Color.White
         );
         
-        List<string> ScoresString = new List<string>();
+        //List<string> ScoresString = new List<string>();
+        string s = "";
 
-        foreach (var item in ScoreManager.GetScores())
+        for (int i = 0; i < ScoreManager.GetScores().Count; i++)
         {
-            ScoresString.Add(item.ToString());
+            s += String.Format("{0}.  {1} pts.\r\n", (i + 1).ToString(), ScoreManager.GetScores()[i].ToString());
         }
+
+       
 
         Globals.spriteBatch.DrawString(
             Globals.font,
-            string.Format("Top Scores: \r\n 1. {0} \r\n 2. {1} \r\n 3. {2}", ScoreManager.GetScores()[0].ToString(), ScoreManager.GetScores()[1], ScoreManager.GetScores()[2]),
+            s,
             camera.Position + new Vector2(0, 100),
             Color.White);
 
 
 
         Globals.spriteBatch.End();
+        ScreenShown = true;
+
     }
 
     private void TutorialText()
@@ -188,7 +221,12 @@ public class GameManager
     {
         //Rita allting
 
+
+
         Globals.spriteBatch.Begin(this.camera);
+
+        if (!GameStarted) { StartScreen(); return; }
+
 
         _map.Draw();
         Trappa.Draw();
