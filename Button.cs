@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 
 
@@ -11,8 +12,9 @@ public class Button
 
 	public Button(Vector2 pos, string text)
 	{
-		size = new Rectangle((int)pos.X, (int)pos.Y, 500, 500);
+		size = new Rectangle((int)pos.X, (int)pos.Y, 110, 20);
 		this.text = text;
+		this.pos = pos;
 	}
 	public void Update()
 
@@ -23,5 +25,6 @@ public class Button
 	public void Draw()
 	{
 		Globals.spriteBatch.DrawString(Globals.font, text, pos, Color.White);
+		
 	}
 }

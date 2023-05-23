@@ -42,6 +42,8 @@ namespace TileMaps
             Globals.font = Content.Load<SpriteFont>("sprite");
             Globals.StructTexture = Content.Load<Texture2D>("Texture/Struct");
             Globals.ArrowTexture = Content.Load<Texture2D>("arrow");
+            Globals.StartScreen = Content.Load<Texture2D>("start");
+            Globals.TeacherCat = Content.Load<Texture2D>("teacher");
            
         }
 

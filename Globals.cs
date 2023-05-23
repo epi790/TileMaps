@@ -7,7 +7,7 @@ public static class Globals
 {
 
     // Variabler som allt kan komma åt
-   
+
     public static ContentManager Content { get; set; }
     public static SpriteBatch spriteBatch { get; set; }
     public static Texture2D PlayerSprite { get; set; }
@@ -15,6 +15,8 @@ public static class Globals
     public static Texture2D StenSprite { get; set; }
     public static Texture2D Tilemap { get; set; }
     public static Texture2D ArrowTexture { get; set; }
+    public static Texture2D StartScreen { get; set; }
+    public static Texture2D TeacherCat { get; set; }
     public static SpriteFont font { get; set; }
     public static int Round { get; set; }
     public static int Stones { get; set; }
@@ -28,5 +30,6 @@ public static class Globals
     public static Texture2D StructTexture { get; set; }
     public static bool Lose { get; set; }
     public static int Level = 1;
+
 
 }

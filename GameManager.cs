@@ -18,14 +18,16 @@ public class GameManager
     private Random rnd = new Random();
     trappa Trappa = new trappa(new(6, 6));
     bool ScreenShown, GameStarted;
-    Button button;
+    Button StartButton, HelpButton, BackButton;
     
 
     public GameManager(GraphicsDevice gd)
     {
         // initiera
         ScoreManager.CheckFile();
-        button = new Button(new Vector2(100, 100), "start");
+        StartButton = new Button(new Vector2(370, 135), "Start");
+        HelpButton = new Button(new Vector2(420, 225), "Help");
+        BackButton = new Button(new Vector2(500, 400), "Tillbaka");
         
 
         _map = new Map(new(20, 20));
@@ -42,18 +44,15 @@ public class GameManager
 
         //Exempel stenar
 
-        Globals.BonkList.Add(new ArgSten(new(Globals.TileSize.X * 6, Globals.TileSize.Y * 6)));
-        Globals.BonkList.Add(new ArgSten(new(Globals.TileSize.X * 6, Globals.TileSize.Y * 7)));
-
-        Globals.BonkList.Add(new ArgSten(new(Globals.TileSize.X * 6, Globals.TileSize.Y * 8)));
+        Globals.BonkList.Add(new Sten(new(Globals.TileSize.X * 6, Globals.TileSize.Y * 6)));
         Globals.BonkList.Add(new ArgSten(new(Globals.TileSize.X * 6, Globals.TileSize.Y * 9)));
-        Globals.BonkList.Add(new ArgSten(new(Globals.TileSize.X * 6, Globals.TileSize.Y * 10)));
 
-        Globals.BonkList.Add(new Sten(new(Globals.TileSize.X * 2, Globals.TileSize.Y * 3)));
+        Globals.BonkList.Add(new Sten(new(Globals.TileSize.X * 3, Globals.TileSize.Y * 3)));
+        Globals.BonkList.Add(new Sten(new(Globals.TileSize.X * 4, Globals.TileSize.Y * 3)));
+        Globals.BonkList.Add(new Sten(new(Globals.TileSize.X * 5, Globals.TileSize.Y * 3)));
+
     }
 
-
-    
 
     private void Init()
     {
@@ -149,14 +148,20 @@ public class GameManager
 
     public void StartScreen()
     {
+        //visa startskärmen
 
-        Globals.spriteBatch.DrawString(Globals.font, "Stenar och Ratblock", new Vector2(Globals.WindowSize.X / 2 - 50, 10), Color.White);
-        Globals.spriteBatch.DrawString(Globals.font, "", new Vector2(Globals.WindowSize.X / 2 - 50, 10), Color.White);
-        Globals.spriteBatch.DrawString(Globals.font, "Stenar och Ratblock", new Vector2(Globals.WindowSize.X / 2 - 50, 10), Color.White);
+        Globals.spriteBatch.Draw(Globals.StartScreen, new Rectangle(0,0,Globals.WindowSize.X, Globals.WindowSize.Y), Color.White);
+        Globals.spriteBatch.DrawString(Globals.font, "CobbleCat", new Vector2(Globals.WindowSize.X / 2 - 50, 10), Color.White);
 
-        button.Update();
-        button.Draw();
-        if (button.Clicked) GameStarted = true;
+
+        HelpButton.Update();
+        HelpButton.Draw();
+
+        StartButton.Update();
+        StartButton.Draw();
+
+        //if (HelpButton.Clicked) TutorialText();
+        if (StartButton.Clicked) GameStarted = true;
         
         Globals.spriteBatch.End();
     }
@@ -212,26 +217,49 @@ public class GameManager
 
     }
 
-    private void TutorialText()
+    private void TutorialLevel()
     {
-        Globals.spriteBatch.DrawString(Globals.font, "Anvand WASD for att flytta katten, Putta stenar till trappan som visas med pilen", Vector2.Zero, Color.White);
+        
+        Globals.spriteBatch.Draw(Globals.TeacherCat, new Rectangle(0,0,Globals.WindowSize.X, Globals.WindowSize.Y), Color.White);
+
+        Globals.spriteBatch.DrawString(Globals.font, "Anvand WASD for att flytta katten  \r\nPutta stenar till trappan som visas med pilen\r\nAkta dig for arga stenar, de ar dumma ", new Vector2(370, 50), Color.Black);
+        
+        BackButton.Update();
+        BackButton.Draw();
+
+        if (BackButton.Clicked) HelpButton.Clicked = false;
+        //GameStarted = false;
+        Globals.spriteBatch.End();
     }
 
     public void Draw()
     {
         //Rita allting
 
-
-
         Globals.spriteBatch.Begin(this.camera);
+        if (HelpButton.Clicked) { TutorialLevel(); return; }
+
+
+        Globals.spriteBatch.DrawString(
+                   Globals.font,
+                   InputManager.LastClicked().ToString(),
+                   camera.Position - new Vector2(0, Globals.WindowSize.Y / 2),
+                   Color.White,
+                   0f,
+                   Vector2.Zero,
+                   1.5f,
+                   SpriteEffects.None,
+                   0
+               );
+
 
         if (!GameStarted) { StartScreen(); return; }
-
+        
 
         _map.Draw();
         Trappa.Draw();
 
-        if (Globals.Level == 1) TutorialText();
+        //if (HelpButton.Clicked) TutorialText();
 
         foreach (Sten sten in Globals.BonkList.OfType<Sten>())
         {
