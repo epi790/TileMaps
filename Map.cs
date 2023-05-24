@@ -17,12 +17,12 @@ public class Map
 
     public Map(Point _mapTileSize)
     {
+    // initera spelplan
         this._mapTileSize = _mapTileSize;
-        //this._mapTileSize.X += 1;
+        
         _tiles = new GameSprite[_mapTileSize.X, _mapTileSize.Y];
 
-        //List<Texture2D> textures = new List<Texture2D>(64);
-
+        
         TileSize = new Point(64, 64);
 
         Globals.TileSize = TileSize;
